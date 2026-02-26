@@ -1,0 +1,1 @@
+Kombinatorik aufgabe, gibt dann eine erzeugende Funktion
