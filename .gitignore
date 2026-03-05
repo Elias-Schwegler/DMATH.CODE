@@ -6,6 +6,15 @@ extract.py
 
 # ZIP-Dateien (zu gross für Git)
 *.zip
+Zips/
+
+# Unterrichts-Screenshots (lokale Notizen, nicht für Git)
+# Gilt für alle SW-Ordner
+**/*.png
+
+# Entpackte Ordner (PDFs zu gross für Git)
+Literatur zur Diskreten Mathematik/
+Pruefungsvorbereitung/
 
 # OS-spezifisch
 .DS_Store
