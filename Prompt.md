@@ -70,21 +70,21 @@ Alle drei Dateitypen durchlesen und Inhalte integrieren.
 
 ## Themenübersicht pro Woche
 
-| Woche | Thema | Schlüsselkonzepte |
-|-------|-------|-------------------|
-| SW 01 | Wahrscheinlichkeit | Grundbegriffe, Laplace, Mengenoperationen |
-| SW 02 | Bedingte Wahrscheinlichkeit | P(A\|B), Unabhängigkeit, Multiplikationssatz |
-| SW 03 | Satz von Bayes | Bayes-Theorem, totale Wahrscheinlichkeit, Baumdiagramme |
-| SW 04 | Zufallsvariablen | Verteilungen, Erwartungswert, Varianz |
-| SW 05 | Randomisierte Algorithmen | Monte-Carlo, Las Vegas, Probabilistische Analyse |
-| SW 06 | Markov-Ketten | Übergangsmatrizen, stationäre Verteilung, Absorbierende Zustände |
-| SW 07 | Matrizenalgebra | Matrizenmultiplikation, Inverse, Determinante |
-| SW 08 | Modulare Arithmetik | Kongruenzen, mod-Rechnung, Restklassen |
-| SW 09 | Primzahlen | Sieb des Eratosthenes, Primzahltests, Faktorisierung |
-| SW 10 | Euklids Algorithmus | ggT, erweiterter Euklid, Bézout-Koeffizienten |
-| SW 11 | Chinesischer Restsatz | CRT, simultane Kongruenzen, Anwendungen |
-| SW 12 | Endliche Gruppen | Gruppenaxiome, Ordnung, Untergruppen, Lagrange |
-| SW 13 | Endliche Körper | Körperaxiome, GF(p), GF(p^n), Anwendungen (Krypto) |
+| Woche | Thema                       | Schlüsselkonzepte                                                  |
+| ----- | --------------------------- | ------------------------------------------------------------------- |
+| SW 01 | Wahrscheinlichkeit          | Grundbegriffe, Laplace, Mengenoperationen                           |
+| SW 02 | Bedingte Wahrscheinlichkeit | P(A\|B), Unabhängigkeit, Multiplikationssatz                       |
+| SW 03 | Satz von Bayes              | Bayes-Theorem, totale Wahrscheinlichkeit, Baumdiagramme             |
+| SW 04 | Zufallsvariablen            | Verteilungen, Erwartungswert, Varianz                               |
+| SW 05 | Randomisierte Algorithmen   | Monte-Carlo, Las Vegas, Probabilistische Analyse                    |
+| SW 06 | Markov-Ketten               | Übergangsmatrizen, stationäre Verteilung, Absorbierende Zustände |
+| SW 07 | Matrizenalgebra             | Matrizenmultiplikation, Inverse, Determinante                       |
+| SW 08 | Modulare Arithmetik         | Kongruenzen, mod-Rechnung, Restklassen                              |
+| SW 09 | Primzahlen                  | Sieb des Eratosthenes, Primzahltests, Faktorisierung                |
+| SW 10 | Euklids Algorithmus         | ggT, erweiterter Euklid, Bézout-Koeffizienten                      |
+| SW 11 | Chinesischer Restsatz       | CRT, simultane Kongruenzen, Anwendungen                             |
+| SW 12 | Endliche Gruppen            | Gruppenaxiome, Ordnung, Untergruppen, Lagrange                      |
+| SW 13 | Endliche Körper            | Körperaxiome, GF(p), GF(p^n), Anwendungen (Krypto)                 |
 
 ---
 
@@ -120,6 +120,7 @@ DMATH.CODE/
 
 - Zuerst den **SW-Ordner** der aktuellen Woche im Pfad `Unterrichtsserien fuer beide Kohorten/` auslesen
 - **PDFs** direkt lesen (Serie-PDF = Aufgaben, Final-PDF = Lösungen)
+- Convert the dpf to images then read the images to see images in the pdf
 - **Jupyter Notebooks** (.ipynb) direkt lesen und Code-Zellen extrahieren
 - ZUSAMMENFASSUNG aus vorherigen Wochen lesen für **Querverweise**
 - Bei Wochen ohne .ipynb: Code-Beispiele aus den Final-PDFs extrahieren
