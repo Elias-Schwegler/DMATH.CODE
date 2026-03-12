@@ -82,6 +82,12 @@ $$
 
 **💡 Intuition:** Der Erwartungswert ist das **gewichtete Mittel** aller möglichen Werte, wobei jeder Wert mit seiner Eintretenswahrscheinlichkeit gewichtet wird. Man kann ihn als den "durchschnittlichen" Ausgang bei vielen Wiederholungen des Experiments verstehen.
 
+**🔗 Link zur Linearen Algebra:** Die Berechnung des Erwartungswerts ist nichts anderes als ein **Skalarprodukt** (Dot Product) zweier Vektoren! Fasst man die Werte als Vektor $\mathbf{x} = (x_1, x_2, \ldots, x_k)$ und die Wahrscheinlichkeiten als Vektor $\mathbf{p} = (P(X = x_1), P(X = x_2), \ldots, P(X = x_k))$ auf, dann gilt:
+
+$$
+E(X) = \mathbf{x} \cdot \mathbf{p} = \sum_i x_i \cdot p_i
+$$
+
 **📌 Beispiel:** Für die Münzwurf-Zufallsvariable $X_1$ (Anzahl Kopf bei 3 Würfen):
 
 $$
@@ -108,6 +114,8 @@ $$
 - Augensumme: $X = X_1 + X_2 + \ldots + X_n$
 - $E(X) = E(X_1) + E(X_2) + \ldots + E(X_n) = 3.5n$
 
+> **👨‍🏫 Ergänzung aus der Vorlesung:** Die Linearität des Erwartungswertes ist vergleichbar mit den Integrationsregeln aus der Analysis, bei denen sich das Integral einer Summe als Summe der Integrale aufspalten lässt: $\int (f(x) + g(x)) dx = \int f(x) dx + \int g(x) dx$. Man kann also zuerst die Erwartungswerte der einzelnen Summanden berechnen und diese am Schluss addieren, genau wie als würde man den Limes oder das Integral aufteilen!
+
 ---
 
 ### Definition 3: Bernoulli- & Binomialverteilung
@@ -130,6 +138,21 @@ E(X) = n \cdot p
 $$
 
 **💡 Intuition:** $X$ zählt, wie oft ein Ereignis mit Wahrscheinlichkeit $p$ bei $n$ **unabhängigen** Versuchen eintritt. Jeder Versuch ist wie ein Münzwurf (Erfolg/Misserfolg).
+
+> **👨‍🏫 Ergänzung aus der Vorlesung (Baumdiagramm für $n=4$):**
+> Betrachten wir das Werfen einer Münze $n=4$ mal (oder jedes andere Bernoulli-Experiment mit Misserfolg $q = 1-p$ und Erfolg $p$). Ein Wahrscheinlichkeitsbaum zeigt alle Pfade. Die Wahrscheinlichkeit für exakt $k$ Erfolge ist immer $p^k \cdot q^{n-k}$. 
+> - Für $k=0$ gibt es exakt $1$ Pfad: $q^4$
+> - Für $k=1$ gibt es $4$ Pfade: $4 \cdot q^3 \cdot p^1$
+> - Für $k=2$ gibt es $6$ Pfade: $6 \cdot q^2 \cdot p^2$ (Dies entspricht dem Vorfaktor aus dem Pascalsches Dreieck bzw. dem Binomialkoeffizienten $\binom{4}{2} = \frac{4!}{2!2!} = 6$, auf diese Zahl kann man rein kombinatorisch kommen!)
+> - Für $k=3$ gibt es $4$ Pfade: $4 \cdot q^1 \cdot p^3$
+> - Für $k=4$ gibt es exakt $1$ Pfad: $p^4$
+>
+> Der Binomialkoeffizient $\binom{n}{k}$ gibt also genau die Anzahl möglicher Pfade im Baumdiagramm an, die zu exakt $k$ Erfolgen führen!
+>
+> **Erweiterung auf $n=100$ Münzwürfe:**
+> - $P(X=0) = \left(\frac{1}{2}\right)^{100}$
+> - $P(X=1) = 100 \cdot \left(\frac{1}{2}\right)^{100}$ (100 Pfade mit 1 Kopf und 99 Zahl)
+> - $P(X=100) = \left(\frac{1}{2}\right)^{100}$
 
 **📌 Herleitung von $E(X) = np$:** Jedes Bit $X_i$ ist Bernoulli-verteilt mit $E(X_i) = p$. Da $X = X_1 + X_2 + \ldots + X_n$, folgt mit Satz 1: $E(X) = np$.
 
@@ -236,6 +259,15 @@ $$
 $$
 E(X) = E(X_1) + E(X_2) + \ldots + E(X_n) = n \cdot \frac{M}{M+N}
 $$
+
+> **👨‍🏫 Ergänzung aus der Vorlesung (Aufgabe 14 - Kombinatorische Herleitung):**
+> Betrachten wir eine Urne mit 5 grünen Kugeln (Erfolge, $M=5$) und 4 weissen Kugeln (Misserfolge, $N=4$). Wir ziehen $n=3$ Kugeln.
+> Die Wahrscheinlichkeit, genau 2 grüne Kugeln zu ziehen ($k=2$):
+> - Es gibt $\binom{5}{2}$ Möglichkeiten, genau 2 der 5 grünen Kugeln zu ziehen.
+> - Es gibt $\binom{4}{1}$ Möglichkeiten, genau 1 der 4 weissen Kugeln zu ziehen (da $n-k = 3-2 = 1$).
+> - Insgesamt gibt es $\binom{9}{3}$ Möglichkeiten, überhaupt 3 Kugeln aus den 9 zu ziehen.
+> - Daraus folgt die Wahrscheinlichkeit: $P(X=2) = \frac{\binom{5}{2} \cdot \binom{4}{1}}{\binom{9}{3}}$
+> - Diese Logik lässt sich auf alle Werte von $k$ (0, 1, 2, 3) übertragen, was exakt die Formel für die Hypergeometrische Verteilung ergibt!
 
 **📌 Beispiel (Speicherzellen, Aufgabe 16):**
 
