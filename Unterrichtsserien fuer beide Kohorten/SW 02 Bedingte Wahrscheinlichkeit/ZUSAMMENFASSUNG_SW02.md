@@ -167,6 +167,82 @@ Der Wahrscheinlichkeitsbaum hat bis zu 5 Stufen, und jede Kante wird mit $P(A)$ 
 
 ---
 
+## 🍳 Kochrezepte (Schritt-für-Schritt-Anleitungen)
+
+### Kochrezept 1: Bedingte Wahrscheinlichkeit berechnen
+
+```
+Schritt 1: Identifiziere Bedingung E und gesuchtes Ereignis A
+           → "Gegeben dass E eingetreten ist, wie gross ist P(A)?"
+
+Schritt 2: Ist P(A ∩ E) direkt bekannt?
+           ├── JA → P(A|E) = P(A ∩ E) / P(E)
+           └── NEIN → Ist P(E|A) bekannt?
+                       ├── JA → Produktregel: P(A ∩ E) = P(A) · P(E|A)
+                       └── NEIN → Baumdiagramm zeichnen (→ Kochrezept 2)
+
+Schritt 3: Kontrolle
+           → 0 ≤ P(A|E) ≤ 1?
+           → Ergebnis plausibel?
+```
+
+### Kochrezept 2: Baumdiagramm aufstellen und auswerten
+
+```
+Schritt 1: Stufen identifizieren
+           → Was passiert zuerst? Was dann?
+           (z.B. 1. Stufe = Würfelwurf, 2. Stufe = Münzwurf)
+
+Schritt 2: Kanten beschriften
+           → 1. Stufe: P(A), P(Ā), ...
+           → 2. Stufe: Bedingte WS P(B|A), P(B|Ā), ...
+
+Schritt 3: Pfadwahrscheinlichkeiten berechnen
+           → PFADREGEL: P(Pfad) = Produkt aller Kanten entlang des Pfades
+
+Schritt 4: Gesuchtes Ereignis zusammensetzen
+           → SUMMENREGEL: P(Ereignis) = Summe aller passenden Pfade
+
+Schritt 5: Bei "mindestens"-Fragen
+           → Gegenereignis nutzen: P(E) = 1 - P(Ē)
+```
+
+### Kochrezept 3: Unabhängigkeit prüfen
+
+```
+Schritt 1: Berechne P(A), P(B), P(A ∩ B)
+
+Schritt 2: Prüfe: P(A ∩ B) = P(A) · P(B)?
+           ├── JA → A und B sind UNABHÄNGIG
+           └── NEIN → A und B sind ABHÄNGIG
+
+⚠️ Achtung: "Unabhängig" ≠ "Disjunkt"!
+   Disjunkte Ereignisse (A ∩ B = ∅) sind IMMER abhängig
+   (wenn P(A), P(B) > 0)!
+```
+
+### Entscheidungsbaum: Welche Methode brauche ich?
+
+```
+Aufgabenstellung lesen:
+│
+├── "Gegeben dass..." / "unter der Bedingung..."?
+│   └── Bedingte WS → Kochrezept 1
+│
+├── "Sind A und B unabhängig?"
+│   └── Kochrezept 3: P(A∩B) = P(A)·P(B) prüfen
+│
+├── Mehrstufiges Experiment?
+│   └── Baumdiagramm → Kochrezept 2
+│       → Pfadregel (Produkt) + Summenregel (Addition)
+│
+└── "Erzeugende Funktion / Polynome"?
+    └── Verteilungen als Polynome darstellen
+        → Multiplikation = Faltung der Verteilungen
+```
+
+---
+
 ## 📊 Vergleiche & Klassifizierungen
 
 ### Bedingte vs. unbedingte Wahrscheinlichkeit

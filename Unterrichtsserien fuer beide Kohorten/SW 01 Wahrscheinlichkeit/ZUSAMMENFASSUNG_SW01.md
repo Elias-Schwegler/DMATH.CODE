@@ -139,6 +139,84 @@ $P(\text{odd}) = 1 - P(\text{odd}) = 1 - \frac{18}{38} = \frac{20}{38}$
 
 ---
 
+## 🍳 Kochrezepte (Schritt-für-Schritt-Anleitungen)
+
+### Kochrezept 1: Wahrscheinlichkeit eines Ereignisses berechnen
+
+```
+Schritt 1: Ergebnismenge Ω bestimmen
+           → Was sind ALLE möglichen Ausgänge?
+           → |Ω| berechnen (Zählprinzipien nutzen!)
+
+Schritt 2: Ist es ein Laplace-Experiment?
+           → Alle Ergebnisse gleich wahrscheinlich?
+           ├── JA → P(E) = |E| / |Ω|   (Abzählen reicht!)
+           └── NEIN → P(E) = Σ P(ω) für ω ∈ E   (jedes ω einzeln)
+
+Schritt 3: Ereignismenge E bestimmen
+           → Welche Ergebnisse sind "günstig"?
+           → |E| berechnen
+
+Schritt 4: Einsetzen und berechnen
+           → Kontrolle: 0 ≤ P(E) ≤ 1?
+```
+
+### Kochrezept 2: "Mindestens"-Aufgaben lösen
+
+```
+⚠️ IMMER über das Gegenereignis rechnen!
+
+Schritt 1: Gegenereignis formulieren
+           "mindestens eine 6" → Gegenereignis: "keine einzige 6"
+           "mindestens 2 Treffer" → Gegenereignis: "0 oder 1 Treffer"
+
+Schritt 2: P(Gegenereignis) berechnen
+           → Meistens viel einfacher als die direkte Rechnung!
+
+Schritt 3: P(E) = 1 - P(Gegenereignis)
+```
+
+### Kochrezept 3: |Ω| bestimmen (Zählprinzip wählen)
+
+```
+Was für eine Auswahl liegt vor?
+│
+├── Reihenfolge WICHTIG?
+│   ├── JA, mit Zurücklegen → |Ω| = n^k
+│   │   (z.B. k Würfelwürfe, Passwörter)
+│   └── JA, ohne Zurücklegen → |Ω| = n!/(n-k)!
+│       (z.B. Podestplätze, Sitzordnungen)
+│
+└── Reihenfolge EGAL?
+    └── Ohne Zurücklegen → |Ω| = C(n,k) = n!/(k!(n-k)!)
+        (z.B. Lottoziehung, Komitee-Auswahl)
+```
+
+### Entscheidungsbaum: Welche Formel brauche ich?
+
+```
+Aufgabenstellung lesen:
+│
+├── "Wahrscheinlichkeit von A ODER B"?
+│   └── P(A ∪ B) = P(A) + P(B) - P(A ∩ B)
+│       ⚠️ Bei disjunkten Ereignissen: P(A ∩ B) = 0
+│
+├── "Wahrscheinlichkeit von A UND B"?
+│   └── P(A ∩ B) = P(A) · P(B)  (nur bei Unabhängigkeit!)
+│       Sonst: P(A ∩ B) = P(A) · P(B|A)
+│
+├── "Mindestens..."?
+│   └── GEGENEREIGNIS: P(E) = 1 - P(Ē)
+│
+├── "Genau k von n..."?
+│   └── → Weiter in SW 04 (Binomialverteilung)
+│
+└── "Wie viele Möglichkeiten..."?
+    └── → Kochrezept 3 (Zählprinzipien)
+```
+
+---
+
 ## 📊 Vergleiche & Klassifizierungen
 
 ### Uniforme vs. nicht-uniforme Verteilungen

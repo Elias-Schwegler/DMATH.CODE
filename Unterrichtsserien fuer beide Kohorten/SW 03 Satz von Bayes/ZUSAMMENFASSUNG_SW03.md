@@ -137,6 +137,87 @@ $$P(A|B) = \frac{\text{Wahrscheinlichkeit des Ziel-Pfades (A und B)}}{\text{Summ
 
 ---
 
+## 🍳 Kochrezepte (Schritt-für-Schritt-Anleitungen)
+
+### Kochrezept 1: Satz von Bayes anwenden (4 Schritte)
+
+```
+Schritt 1: Ursache und Wirkung identifizieren
+           → Ursache A = das was wir SUCHEN (z.B. "krank")
+           → Wirkung B = das was wir BEOBACHTEN (z.B. "Test positiv")
+           → Gesucht: P(A|B) = "Wie wahrscheinlich ist A, GEGEBEN B?"
+
+Schritt 2: Baumdiagramm zeichnen
+           → 1. Stufe (Ursache): P(A) und P(Ā)
+           → 2. Stufe (Wirkung): P(B|A) und P(B|Ā)
+
+Schritt 3: Totale Wahrscheinlichkeit berechnen (= Nenner)
+           → P(B) = P(A)·P(B|A) + P(Ā)·P(B|Ā)
+           ⚠️ Summe ALLER Pfade die bei B enden!
+
+Schritt 4: Bayes-Formel einsetzen
+           → P(A|B) = P(A)·P(B|A) / P(B)
+           = Zielpfad / Summe aller Pfade zu B
+
+⭐ Merkregel: "Bayes = Zielpfad ÷ alle Pfade die bei B enden"
+```
+
+### Kochrezept 2: Naive Bayes (Spam-Filter / Klassifikation)
+
+```
+Schritt 1: Apriori-Wahrscheinlichkeit bestimmen
+           → P(Spam), P(¬Spam) aus Trainingsdaten
+
+Schritt 2: Likelihoods bestimmen
+           → P(Wort|Spam) und P(Wort|¬Spam) für jedes Wort
+
+Schritt 3: Merkmale multiplizieren (Naive Bayes Annahme!)
+           → P(W₁,W₂,...|Spam) ≈ P(W₁|Spam) · P(W₂|Spam) · ...
+           ⚠️ Gilt nur unter Annahme bedingter Unabhängigkeit!
+
+Schritt 4: Bayes anwenden
+           → P(Spam|W₁,W₂,...) ∝ P(Spam) · P(W₁|Spam) · P(W₂|Spam) · ...
+           → Normieren: dividieren durch P(Spam)·∏P(Wᵢ|Spam) + P(¬Spam)·∏P(Wᵢ|¬Spam)
+```
+
+### Entscheidungsbaum: Wann brauche ich Bayes?
+
+```
+Aufgabenstellung lesen:
+│
+├── "Gegeben Testergebnis, wie wahrscheinlich ist Krankheit?"
+│   └── BAYES! Ursache ← Wirkung (Rückwärtsschluss)
+│
+├── "Gegeben Krankheit, wie wahrscheinlich ist positiver Test?"
+│   └── KEIN Bayes nötig – P(B|A) ist direkt gegeben!
+│
+├── "Spam-Filter / Klassifikation"
+│   └── NAIVE BAYES → Kochrezept 2
+│
+├── "Totale Wahrscheinlichkeit von B?"
+│   └── P(B) = Σᵢ P(Aᵢ)·P(B|Aᵢ)
+│       (Partition! Alle Pfade zu B summieren)
+│
+└── "Paritätsbits / Rauschender Kanal?"
+    └── Bayes mit Binomialverteilung für Fehlerwahrscheinlichkeit
+```
+
+### Kochrezept 3: Totale Wahrscheinlichkeit berechnen
+
+```
+Schritt 1: Partition {A₁, A₂, ..., Aₙ} identifizieren
+           → Ursachen, die den gesamten Wahrscheinlichkeitsraum abdecken
+           → Häufig: A und Ā (2er-Partition)
+
+Schritt 2: Für jedes Aᵢ:
+           → P(Aᵢ) und P(B|Aᵢ) bestimmen
+
+Schritt 3: Summieren:
+           → P(B) = P(A₁)·P(B|A₁) + P(A₂)·P(B|A₂) + ... + P(Aₙ)·P(B|Aₙ)
+```
+
+---
+
 ## 📊 Vergleiche & Klassifizierungen
 
 ### Apriori vs. Aposteriori

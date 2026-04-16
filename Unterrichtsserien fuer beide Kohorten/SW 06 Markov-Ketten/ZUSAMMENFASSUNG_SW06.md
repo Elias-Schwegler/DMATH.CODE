@@ -332,6 +332,91 @@ $$\boxed{\vec{\pi} = \frac{1}{71}(32, 9, 30) \approx (0.4507, 0.1268, 0.4225)}$$
 
 ---
 
+## 🍳 Kochrezepte (Schritt-für-Schritt-Anleitungen)
+
+### Kochrezept 1: Übergangsmatrix aus Graph aufstellen
+
+```
+Schritt 1: Knoten nummerieren → das werden Zeilen UND Spalten
+
+Schritt 2: Für jeden Knoten i (= Zeile i):
+           → Alle AUSGEHENDEN Kanten ablesen
+           → Wahrscheinlichkeiten in Zeile i eintragen
+           → Fehlende Übergänge = 0
+
+Schritt 3: Kontrolle: JEDE ZEILE muss Summe 1 ergeben!
+
+⚠️ Merke: "Zeile = VON, Spalte = NACH"
+   T[i][j] = Wahrscheinlichkeit, von i nach j zu gehen
+```
+
+### Kochrezept 2: Irrfahrt-Übergangsmatrix
+
+```
+Schritt 1: Für jeden Knoten i: Grad(i) = Anzahl Nachbarn bestimmen
+
+Schritt 2: Übergangswahrscheinlichkeit:
+           p(i,j) = 1/Grad(i)  für jeden Nachbar j von i
+           p(i,j) = 0           für Nicht-Nachbarn
+
+Schritt 3: Kontrolle: Zeilensumme = 1?
+```
+
+### Kochrezept 3: Invariante Verteilung per LGS (von Hand)
+
+```
+Schritt 1: Gleichungen aus π · T = π aufstellen
+           → Spalte j: Σᵢ πᵢ · Tᵢⱼ = πⱼ
+
+Schritt 2: Eine Gleichung streichen (ist redundant!)
+           → Ersetzen durch Normierung: π₁ + π₂ + ... + πₙ = 1
+
+Schritt 3: LGS lösen (Einsetzen oder Gauss)
+           → Tipp: Erst eine Variable durch andere ausdrücken
+
+Schritt 4: Kontrolle
+           → Alle πᵢ ≥ 0? Summe = 1? π · T = π?
+```
+
+### Kochrezept 4: Irreduzibel & Aperiodisch prüfen
+
+```
+IRREDUZIBEL prüfen:
+  Schritt 1: Für jedes Knotenpaar (i, j): Gibt es einen Pfad i → ... → j?
+  Schritt 2: Alle Paare erreichbar? → JA = irreduzibel
+  🔑 Shortcut: Wenn der Graph "stark zusammenhängend" aussieht → irreduzibel
+
+APERIODISCH prüfen:
+  Schritt 1: Für jeden Knoten s: Rückkehrzeiten N_s bestimmen
+             N_s = {t : P(X_t = s | X_0 = s) > 0}
+  Schritt 2: ggT(N_s) berechnen
+  Schritt 3: Alle ggT = 1? → JA = aperiodisch
+  🔑 Shortcut: Selbstschleife bei Knoten s → 1 ∈ N_s → ggT = 1 automatisch!
+```
+
+### Entscheidungsbaum: Was sagt mir die Klassifikation?
+
+```
+Markov-Kette analysiert:
+│
+├── Irreduzibel?
+│   ├── JA → GENAU EINE invariante Verteilung
+│   │   └── Auch aperiodisch?
+│   │       ├── JA → Konvergenz EGAL welcher Startzustand!
+│   │       │        (Langzeitverhalten = invariante Verteilung)
+│   │       └── NEIN → Kette kann oszillieren
+│   │                  (invariante Vert. existiert, aber keine Konvergenz)
+│   │
+│   └── NEIN → MEHRERE invariante Verteilungen möglich!
+│              (Startverteilung bestimmt, welche angenommen wird)
+│
+└── PageRank-Aufgabe?
+    → T = d · T_Link + (1-d) · (1/n)
+    → Invariante Verteilung = PageRank-Werte
+```
+
+---
+
 ## 📊 Vergleiche & Klassifizierungen
 
 ### Markov-Kette Eigenschaften – Übersicht

@@ -245,6 +245,92 @@ print(f"Mindestens {n} Durchläufe nötig")  # → 14
 
 ---
 
+## 🍳 Kochrezepte (Schritt-für-Schritt-Anleitungen)
+
+### Kochrezept 1: Erwartete Berechnungskomplexität bestimmen
+
+```
+Schritt 1: Alle möglichen Inputs aufzählen
+           → Was sind die möglichen Eingaben? (= Ω)
+
+Schritt 2: Pro Input: Rechenschritte zählen
+           → X(ω) = Anzahl Operationen für Input ω
+
+Schritt 3: Jedem Input die Wahrscheinlichkeit zuweisen
+           → P(ω) = Wahrscheinlichkeit für diesen Input
+           → Oft: Gleichverteilung → P(ω) = 1/|Ω|
+
+Schritt 4: Erwartungswert berechnen
+           → E(X) = Σ X(ω) · P(ω)
+
+Beispiel: linearSearch in Liste der Länge n
+  → X(Position i) = i Vergleiche
+  → P(Position i) = 1/n
+  → E(X) = (1 + 2 + ... + n) / n = (n+1)/2
+```
+
+### Kochrezept 2: Algorithmus klassifizieren (Las Vegas vs. Monte Carlo)
+
+```
+Frage 1: Ist das Ergebnis IMMER korrekt?
+├── JA → Las Vegas
+│        → Laufzeit ist die Zufallsvariable
+│        → "Immer richtig, aber manchmal langsam"
+│
+└── NEIN → Frage 2: Terminiert der Algorithmus IMMER in fester Zeit?
+           ├── JA → Monte Carlo
+           │        → Korrektheit ist die Zufallsvariable
+           │        → "Immer schnell, aber manchmal falsch"
+           └── NEIN → Weder noch (oder beides prüfen)
+
+Merkregel:
+  "Las Vegas = immer RICHTIG" (Las Vegas ist echt/real)
+  "Monte Carlo = immer SCHNELL" (Monte Carlo ist ein Spiel/Glück)
+```
+
+### Kochrezept 3: Monte Carlo Wiederholungsformel
+
+```
+Gegeben: MC-Algorithmus mit Erfolgswahrscheinlichkeit p pro Durchlauf
+Gesucht: Wie oft wiederholen für Gesamterfolg ≥ 1 - ε?
+
+Schritt 1: p bestimmen (Erfolgswahrscheinlichkeit eines Durchlaufs)
+Schritt 2: ε bestimmen (gewünschte Fehlerwahrscheinlichkeit)
+Schritt 3: Formel anwenden:
+           n ≥ ⌈log(ε) / log(1 - p)⌉
+           ⚠️ AUFRUNDEN! (⌈...⌉)
+
+Beispiel: p = 1/2, ε = 0.001 (99.9% Sicherheit)
+  → n ≥ ⌈log(0.001) / log(0.5)⌉ = ⌈9.97⌉ = 10 Wiederholungen
+
+Herleitung: P(alle n falsch) = (1-p)^n ≤ ε
+  → n · log(1-p) ≤ log(ε)
+  → n ≥ log(ε) / log(1-p)    (Division durch negative Zahl → ≥ dreht!)
+```
+
+### Entscheidungsbaum: Welche Analyse brauche ich?
+
+```
+Aufgabenstellung lesen:
+│
+├── "Erwartete Komplexität von Algorithmus X?"
+│   └── Kochrezept 1: E(X) = Σ Schritte · P(Input)
+│
+├── "Las Vegas oder Monte Carlo?"
+│   └── Kochrezept 2: Immer korrekt? → Las Vegas. Immer schnell? → Monte Carlo.
+│
+├── "Wie oft wiederholen für Sicherheit ≥ ...?"
+│   └── Kochrezept 3: n ≥ ⌈log(ε) / log(1-p)⌉
+│
+├── "Erwartete Komplexität von randQuicksort?"
+│   └── O(n log n) – jedes Paar wird mit P = 2/(j-i+1) verglichen
+│
+└── "Karger Min-Cut: Wie oft wiederholen?"
+    └── P(Erfolg) ≥ 2/(n(n-1))  →  MC-Formel mit p = 2/(n(n-1))
+```
+
+---
+
 ## 📊 Vergleiche & Klassifizierungen
 
 ### Las Vegas vs. Monte Carlo – Detailvergleich

@@ -368,6 +368,74 @@ $$
 
 ---
 
+## 🍳 Kochrezepte (Schritt-für-Schritt-Anleitungen)
+
+### Kochrezept 1: Verteilungsaufgabe lösen (5 Schritte)
+
+```
+Schritt 1: Zufallsvariable definieren
+           → "Was wird gezählt/gemessen?"
+           → X = Anzahl der [Erfolge/Treffer/Fehler/...]
+
+Schritt 2: Verteilung erkennen → Entscheidungsbaum nutzen!
+           ┌─ Feste Anzahl n Versuche?
+           │  ├── JA → MIT Zurücklegen / unabhängig?
+           │  │   ├── JA → BINOMIALVERTEILUNG B(n, p)
+           │  │   └── NEIN → OHNE Zurücklegen?
+           │  │       └── JA → HYPERGEOMETRISCHE VERTEILUNG H(n, M, N)
+           │  └── NEIN → Warten auf ersten Erfolg?
+           │      └── JA → GEOMETRISCHE VERTEILUNG Geo(p)
+           │
+           └─ Seltene Ereignisse pro Zeiteinheit?
+              └── JA → POISSONVERTEILUNG Poi(μ)
+
+Schritt 3: Parameter aus dem Aufgabentext extrahieren
+           → Binomial: n = Anzahl Versuche, p = Erfolgswahrscheinlichkeit
+           → Hypergeom.: n = Stichprobe, M = Treffer in Population, N = Nicht-Treffer
+           → Geometrisch: p = Erfolgswahrscheinlichkeit
+           → Poisson: μ = erwartete Anzahl pro Zeiteinheit
+
+Schritt 4: Frage interpretieren
+           ├── "Genau k"      → P(X = k) direkt einsetzen
+           ├── "Höchstens k"  → P(X ≤ k) = Σ P(X = i) für i = 0..k
+           ├── "Mindestens k"  → P(X ≥ k) = 1 - P(X ≤ k-1)  ⚠️ GEGENEREIGNIS!
+           ├── "Mehr als k"    → P(X > k) = 1 - P(X ≤ k)
+           └── "Durchschnitt?" → E(X) berechnen
+
+Schritt 5: Formel einsetzen und rechnen
+           → Kontrolle: 0 ≤ P(X = k) ≤ 1?
+           → Kontrolle: Σ P(X = k) = 1?
+```
+
+### Kochrezept 2: Erwartungswert berechnen
+
+```
+Welche Verteilung?
+│
+├── Binomial B(n, p)         → E(X) = n · p
+├── Hypergeometrisch H(n,M,N)→ E(X) = n · M/(M+N)
+├── Geometrisch Geo(p)       → E(X) = 1/p
+├── Poisson Poi(μ)           → E(X) = μ
+│
+└── Allgemein (keine Standardverteilung)?
+    → E(X) = Σ xᵢ · P(X = xᵢ)   (Definition!)
+```
+
+### Kochrezept 3: "Mindestens"-Aufgaben mit Verteilungen
+
+```
+⚠️ IMMER über das Gegenereignis rechnen!
+
+Beispiel: "Mindestens 3 Treffer bei n=10, p=0.4"
+→ X ~ B(10, 0.4)
+
+Schritt 1: Gegenereignis = "Weniger als 3 Treffer" = P(X ≤ 2)
+Schritt 2: P(X ≤ 2) = P(X=0) + P(X=1) + P(X=2)
+Schritt 3: P(X ≥ 3) = 1 - P(X ≤ 2)
+```
+
+---
+
 ## 🔄 Vergleichstabelle: Binomial vs. Hypergeometrisch
 
 | Eigenschaft                  | Binomialverteilung                 | Hypergeometrische Verteilung              |
