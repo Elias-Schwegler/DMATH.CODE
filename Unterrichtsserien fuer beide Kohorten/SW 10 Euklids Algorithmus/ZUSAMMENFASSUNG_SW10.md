@@ -169,6 +169,80 @@ $$\boxed{T_a \cap T_b = T_b \cap T_{a \bmod b}}$$
 | 4 | $= \text{ggT}(12, 6)$ | weil $30 \bmod 12 = 6$ |
 | 5 | $= \text{ggT}(6, 0) = \mathbf{6}$ | weil $12 \bmod 6 = 0$ (Basisfall!) |
 
+### 📊 Graph: Die Rekursion als "Treppe" (monoton fallend!)
+
+> **Erläuterung:** Die Zahlen werden bei jedem Schritt kleiner, weil $a \bmod b < b$. Das ist der Grund für die Terminierung!
+
+```
+Werte-Paar (a, b) beim Algorithmus:
+
+ Wert
+  ↑
+ 174 ●
+     │\
+ 102 ●──●          ← (174, 102) → (102, 72)
+     │  │\
+  72 │  ●──●       ← (102, 72) → (72, 30)
+     │  │  │\
+  30 │  │  ●──●    ← (72, 30)  → (30, 12)
+     │  │  │  │\
+  12 │  │  │  ●──● ← (30, 12)  → (12, 6)
+     │  │  │  │  │\
+   6 │  │  │  │  ●──● ← (12, 6)  → (6, 0) ← STOPP
+     │  │  │  │  │  │
+   0 ├──┴──┴──┴──┴──┴──→ Iteration
+     0  1  2  3  4  5
+
+ 💡 Beobachtung: Die zweite Komponente (rot umrandet)
+    wird von 174 → 102 → 72 → 30 → 12 → 6 → 0
+    jedes Mal mindestens halbiert (im Schnitt)!
+    Darum: Laufzeit O(log b)
+```
+
+### 📊 Graph: Venn-Diagramm der Teilermengen
+
+> **Erläuterung:** Die zentrale Identität $T_a \cap T_b = T_b \cap T_{a \bmod b}$ lässt sich mit einem Venn-Diagramm veranschaulichen. Die **rosa** Schnittmenge verschiebt sich, bleibt aber dieselbe!
+
+```
+VORHER: T_a ∩ T_b                   NACHHER: T_b ∩ T_{a mod b}
+
+    ╭──────────╮                        ╭──────────╮
+   ╱     T_a    ╲                      ╱     T_b    ╲
+  │       ╭──────┴──╮                 │       ╭──────┴──╮
+  │      ╱▓▓▓▓▓▓    ╲                 │      ╱▓▓▓▓▓▓    ╲
+  │     │▓▓▓▓▓▓▓ T_b │                │     │▓▓▓▓▓▓ T_{a%b}│
+   ╲    │▓▓▓▓▓▓▓    │                  ╲    │▓▓▓▓▓▓▓     │
+    ╲   │▓ gleich! ▓│                   ╲   │▓ gleich! ▓ │
+     ╲__│___________│                    ╲__│____________│
+        ╲           ╱                       ╲            ╱
+         ╲_________╱                         ╲__________╱
+
+         ▓▓ = ggT(a, b) ist da drin ▓▓
+```
+
+**Konkretes Beispiel:** $\text{ggT}(44, 12)$, also $a=44, b=12, a \bmod b = 8$
+
+$$T_{44} = \{1, 2, 4, 11, 22, 44\}, \quad T_{12} = \{1, 2, 3, 4, 6, 12\}, \quad T_8 = \{1, 2, 4, 8\}$$
+
+$$T_{44} \cap T_{12} = \{1, 2, 4\} = T_{12} \cap T_8 \quad \checkmark$$
+
+```
+       T_44              T_12              T_8
+   ╭──────────╮       ╭──────────╮       ╭──────────╮
+   │ 11       │       │          │       │          │
+   │ 22       │       │    3     │       │          │
+   │ 44       │       │    6     │       │    8     │
+   │     ┌────┼───────┼────┐ 12  │       │          │
+   │     │ 1  │       │ 1  │     │       │          │
+   │     │ 2  │       │ 2  │─────┼───────┼──┐       │
+   │     │ 4  │       │ 4  │     │       │  │ 1 2 4 │
+   │     └────┼───────┼────┘     │       │  │       │
+   ╰──────────╯       ╰──────────╯       ╰──────────╯
+
+     T_44 ∩ T_12 = {1, 2, 4}  =  T_12 ∩ T_8
+                  ╰─── Max: 4 = ggT(44, 12) ───╯
+```
+
 ### Satz 3: Laufzeit des Algorithmus von Euklid
 
 > Für die Anzahl Iterationen im Algorithmus von Euklid gilt in Abhängigkeit von $b$ die asymptotische Abschätzung $\mathcal{O}(\log b)$.
@@ -185,9 +259,87 @@ Umgestellt: **Anzahl Iterationen** $n \leq \log_3(b)$, also $\mathcal{O}(\log b)
 
 > 💡 **Worst-Case:** Aufeinanderfolgende Fibonacci-Zahlen wie $(21, 13)$ brauchen die meisten Iterationen!
 
+### 📊 Graph: Worst-Case sind die Fibonacci-Zahlen!
+
+> **Erläuterung:** Aus der Tabelle im Skript sehen wir: Für welche Zahlen $b$ braucht der Algorithmus am meisten Iterationen? Die **Fibonacci-Folge**!
+
+```
+b (Zahl) │ 1  2  3  4  5  8  13  21  34  55  89  144  ← Fibonacci!
+  ───────┼──────────────────────────────────────────────
+  Worst- │
+  Case   │ 2  3  4  5  6  7   8   9  10  11  12   13
+  Iter.  │
+
+ Iterationen
+      ↑
+   13 ┤                                     ●
+      │                              ●
+   10 ┤                       ●
+      │                ●
+    7 ┤       ●
+      │●
+    4 ┤
+      ┼─────┬─────┬─────┬─────┬─────┬─────→ log₃(b)
+      1    2     5    13    55   144   377
+
+ Die Kurve wächst LOGARITHMISCH – Nutzen-Prinzip:
+ Die Grösse der Zahl verdoppelt sich, aber die Anzahl
+ Iterationen wächst nur linear!
+```
+
+**Konkretes Beispiel für Fibonacci-Worst-Case:** $\text{ggT}(21, 13)$
+
+```
+ggT(21, 13)  →  ggT(13, 8)   →  ggT(8, 5)
+             →  ggT(5, 3)    →  ggT(3, 2)
+             →  ggT(2, 1)    →  ggT(1, 0) = 1
+
+Es sind alles FIBONACCI-Zahlen: 21, 13, 8, 5, 3, 2, 1!
+→ 6 Iterationen für b = 13 – Worst Case!
+```
+
 ---
 
 ### 5. Erweiterter Euklidischer Algorithmus
+
+### 📊 Graph: Flowchart des Euklidischen Algorithmus
+
+```
+       ┌─────────────────────┐
+       │   START: ggT(a, b)   │
+       │   mit a ≥ b ≥ 0      │
+       └──────────┬──────────┘
+                  │
+                  ▼
+       ┌─────────────────────┐
+       │     Ist b == 0 ?     │
+       └───┬─────────────┬───┘
+           │             │
+        JA │             │ NEIN
+           ▼             ▼
+    ┌──────────┐  ┌───────────────────┐
+    │ return a │  │  r = a mod b      │
+    │ (= ggT)  │  │  a ← b            │
+    └──────────┘  │  b ← r            │
+         ▲        │  (Swap!)          │
+         │        └─────────┬─────────┘
+         │                  │
+         └──────────────────┘  (zurück zur Bedingung)
+
+ Beispiel ggT(174, 102):
+    ┌─────┬─────┬───────────┐
+    │  a  │  b  │ r = a%b   │
+    ├─────┼─────┼───────────┤
+    │ 174 │ 102 │    72     │
+    │ 102 │  72 │    30     │
+    │  72 │  30 │    12     │
+    │  30 │  12 │     6     │
+    │  12 │   6 │     0     │
+    │   6 │   0 │  STOPP!   │ → ggT = 6
+    └─────┴─────┴───────────┘
+```
+
+---
 
 ### Satz 4 (Bachet de Méziriac, 1624)
 
@@ -261,6 +413,37 @@ $$1 = 115 \cdot 963 + (-508) \cdot 218$$
 
 ---
 
+### 📊 Graph: Geometrische Interpretation der Linearkombination
+
+> **Erläuterung:** Die Gleichung $\text{ggT}(a,b) = s \cdot a + t \cdot b$ beschreibt alle **Gitterpunkte** (Vielfache von $a$ und $b$), die auf dem ggT landen. Mit dem erweiterten Euklid finden wir die Koeffizienten!
+
+```
+ Gitterpunkte s·a + t·b für ggT(6, 4) = 2:
+
+       t·4
+        ↑
+      8 ┤  ●     ●     ●     ●     ●     ●
+        │
+      4 ┤  ●     ●     ●     ●     ●     ●
+        │
+      0 ┤──●─────●─────●─────●─────●─────●─── s·6
+        │  :     :     :     :     :     :
+     -4 ┤  ●     ●     ●     ●     ●     ●
+        │
+     -8 ┤  ●     ●     ●     ●     ●     ●
+        │
+        ┼──┬─────┬─────┬─────┬─────┬─────┬─→
+        -12   -6    0    6    12    18   24
+
+ ggT = 2 ist der KLEINSTE positive Wert im Gitter:
+ • 2 = 1·6 + (-1)·4   → (s=1, t=-1)
+ • 2 = (-1)·6 + 2·4   → (s=-1, t=2)
+ • 2 = 3·6 + (-4)·4   → (s=3, t=-4)  ← k=+2
+ ... (unendlich viele Lösungen!)
+```
+
+---
+
 ### 6. Inverse Zahlen in modularer Arithmetik
 
 #### Motivation: Lineare Gleichung $a \cdot x + b = c$
@@ -300,6 +483,63 @@ $$x = a^{-1} \cdot (c + (-b))$$
 >   $$1 = \text{ggT}(m, r) = s \cdot m + t \cdot r \implies \underbrace{t \cdot r \bmod m = 1}_{\Rightarrow \; t = r^{-1}}$$
 
 > 🎯 **Kernaussage:** Mit dem **erweiterten Algorithmus von Euklid** finden wir für den ggT eine Linearkombination — und damit bekommen wir die **multiplikativ inverse Zahl** quasi geschenkt!
+
+### 📊 Graph: Entscheidungsbaum für multiplikativ Inverse modulo m
+
+```
+      ┌──────────────────────────────────┐
+      │  Gegeben: Zahl r, Modulus m       │
+      │  Frage: Existiert r⁻¹ mod m?      │
+      └────────────────┬─────────────────┘
+                       │
+                       ▼
+       ┌───────────────────────────────┐
+       │  Berechne ggT(m, r) mit        │
+       │  erweitertem Euklid            │
+       │  → liefert auch s, t           │
+       │    mit ggT(m, r) = s·m + t·r   │
+       └────────┬──────────────┬───────┘
+                │              │
+         ggT=1  │              │ ggT>1
+                ▼              ▼
+       ┌─────────────┐  ┌───────────────┐
+       │ r⁻¹ existiert!│  │ r⁻¹ existiert│
+       │              │  │ NICHT!        │
+       │ r⁻¹ ≡ t mod m│  │               │
+       │ (in {0..m-1})│  │ (r nicht     │
+       │              │  │  teilerfremd  │
+       │              │  │  zu m)        │
+       └──────┬───────┘  └───────────────┘
+              │
+              ▼
+       ┌──────────────────┐
+       │ Probe (immer!):  │
+       │ r · (r⁻¹) mod m  │
+       │    == 1 ?        │
+       └──────────────────┘
+```
+
+### 📊 Graph: Welche Zahlen haben ein Inverses modulo 10?
+
+```
+ r (mod 10) │  0  1  2  3  4  5  6  7  8  9
+ ──────────┼─────────────────────────────────
+ ggT(10,r) │ 10  1  2  3  2  5  2  7  2  3
+ ──────────┼─────────────────────────────────
+ r⁻¹?      │  ✗  ✓  ✗  ✓  ✗  ✗  ✗  ✓  ✗  ✓
+           │        (weil ggT ≠ 1 → nicht teilerfremd zu 10)
+
+ Die "einheitlichen" Zahlen modulo 10:
+  {1, 3, 7, 9}  ← sind genau die teilerfremd zu 10!
+
+ Und ihre Inversen:
+   1⁻¹ = 1  (weil 1·1 = 1)
+   3⁻¹ = 7  (weil 3·7 = 21 ≡ 1 mod 10)
+   7⁻¹ = 3  (weil 7·3 = 21 ≡ 1 mod 10)
+   9⁻¹ = 9  (weil 9·9 = 81 ≡ 1 mod 10)
+```
+
+> 💡 **Prüfungstrick:** Wenn $m$ eine Primzahl ist, hat **jede** Zahl $r \in \{1, \ldots, m-1\}$ ein Inverses (denn $\text{ggT}(p, r) = 1$ für alle $r < p$). Das ist der Grund, warum $\mathbb{Z}_p$ ein Körper ist (→ SW 13)!
 
 ---
 
